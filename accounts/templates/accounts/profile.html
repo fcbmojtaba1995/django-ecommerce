@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {% if user.first_name %}
+        {{ user.first_name }} {{ user.last_name }} | Profile
+    {% else %}
+        {{ user.phone }} | Profile
+    {% endif %}
+
+{% endblock %}
+
+
+{% block content %}
+    {% if request.user.is_authenticated and request.user.id == user.id %}
+        <a href="{% url 'accounts:edit_profile' user.id %}">Edit Profile</a><br>
+        <a href="{% url 'accounts:edit_password' user.id %}">Edit Password</a><br>
+        <a href="{% url 'accounts:edit_phone' user.id %}">Edit Phone</a><br>
+        <a href="{% url 'accounts:delete_account' user.id %}">Delete Account</a>
+    {% endif %}
+
+    <div class="text-center">
+
+        <img src="https://www.vippng.com/png/full/416-4161690_empty-profile-picture-blank-avatar-image-circle.png"
+             alt="" width="100px" height="100px" class="rounded-circle">
+
+        {% if user.first_name %}
+            <h4 class="text-center">{{ user.first_name|capfirst }} {{ user.last_name|capfirst }}</h4>
+        {% else %}
+            <h4 class="text-center">{{ user.phone|capfirst }}</h4>
+        {% endif %}
+        <small class="text-center">{{ user.username|capfirst }}</small>
+
+    </div><br>
+
+{% endblock %}

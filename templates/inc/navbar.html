@@ -1,6 +1,17 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="navbar-nav">
         <a class="nav-item nav-link" href="">Home</a>
-
+        {% if request.user.is_authenticated %}
+            {% if request.user.phone %}
+                <a href="{% url 'accounts:profile' request.user.id %}"
+                   class="nav-item nav-link">{{ request.user.phone }}</a>
+            {% else %}
+                <a href="{% url 'accounts:profile' request.user.id %}"
+                   class="nav-item nav-link">{{ request.user.username }}</a>
+            {% endif %}
+            <a class="nav-item nav-link" href="{% url 'accounts:logout' %}">Logout</a>
+        {% else %}
+            <a class="nav-item nav-link" href="{% url 'accounts:login_register' %}">Login</a>
+        {% endif %}
     </div>
 </nav>
