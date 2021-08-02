@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block title %} Order Detail {% endblock %}
+{% block content %}
+    <h3>Checkout</h3>
+    <p>Total Price: {{ order.get_total_price|intcomma }} Toman</p>
+    {% if order.discount %}
+        <p>Discount: {{ order.discount }}%</p>
+        <p>Total Price After Apply Coupon: {{ order.get_total_price_after_apply_coupon|intcomma }} Toman</p>
+    {% endif %}
+    <form action="{% url 'orders:apply_coupon' order.id %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Apply">
+    </form>
+    <br>
+    <a href="{% url 'orders:payment' order.id %}" class="btn btn-primary">Pay</a>
+{% endblock %}
