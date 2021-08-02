@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Product, Category, ProductImages
-
+from .models import Product, Category
+from .forms import AddToCartForm
 
 def home_view(request, category_id=None, slug=None):
     products = Product.objects.filter(available=True)
@@ -14,4 +14,8 @@ def home_view(request, category_id=None, slug=None):
 def product_detail_view(request, slug):
     product = get_object_or_404(Product, slug=slug)
     categories = product.category.all()
-    return render(request, 'shop/product_detail.html', context={'product': product, 'categories': categories})
+    form = AddToCartForm()
+    return render(
+        request, 'shop/product_detail.html',
+        context={'product': product, 'categories': categories, 'form': form}
+    )

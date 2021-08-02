@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     # My apps
     'accounts.apps.AccountsConfig',
     'shop.apps.ShopConfig',
+    'cart.apps.CartConfig',
 
     # Third party apps
     'sorl.thumbnail',

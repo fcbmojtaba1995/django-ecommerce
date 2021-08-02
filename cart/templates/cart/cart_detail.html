@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load humanize%}
+{% block title %} Cart Detail {% endblock %}
+{% block content %}
+    <table class="table table-striped table-dark">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Unit Price</th>
+            <th scope="col">Total Price</th>
+            <th scope="col">Remove</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in cart %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ item.product }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.price|intcomma }} Toman</td>
+                <td>{{ item.total_price|intcomma }} Toman</td>
+                <td>
+                    <form action="{% url 'cart:remove_from_cart' item.product.id %}" method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" value="Remove" class="btn btn-danger">
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td>Total</td>
+            <td colspan="3"></td>
+            <td>{{ cart.get_total_price|intcomma }} Toman</td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

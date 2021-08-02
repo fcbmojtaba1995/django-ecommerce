@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load humanize %}
-{% block title %} Shop {% endblock %}
+{% block title %} {{ product.name }} | Shop {% endblock %}
 
 {% block content %}
     <div class="container">
@@ -38,8 +38,9 @@
                 <h4>{{ product.price|intcomma }} Toman</h4><br>
             </div>
             <div class="col">
-                <form action="" method="post">
-
+                <form action="{% url 'cart:add_to_cart' product.id %}" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
                     <input type="submit" value="Add to Cart" class="btn btn-primary">
                 </form>
             </div>
