@@ -25,9 +25,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
 
     # My apps
     'accounts.apps.AccountsConfig',
+    'shop.apps.ShopConfig',
+
+    # Third party apps
+    'sorl.thumbnail',
 ]
 
 MIDDLEWARE = [
@@ -123,4 +128,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.User'
 AUTHENTICATION_BACKENDS = ('accounts.backends.PasswordLessAuthBackend',)
 LOGIN_URL = 'accounts:login_register'
-

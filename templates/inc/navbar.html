@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="navbar-nav">
-        <a class="nav-item nav-link" href="">Home</a>
+        <a class="nav-item nav-link" href="{% url 'shop:home' %}">Home</a>
         {% if request.user.is_authenticated %}
             {% if request.user.phone %}
                 <a href="{% url 'accounts:profile' request.user.id %}"

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load thumbnail %}
+{% block title %} Shop {% endblock %}
+
+{% block content %}
+    {% for category in categories %}
+        <div class="btn-group">
+            <a href="{{ category.get_absolute_url }}" class="btn btn-primary">{{ category.name }}</a>
+            <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                {% for sub_category in category.subcategory.all %}
+                    <a class="dropdown-item" href="{{ sub_category.get_absolute_url }}">{{ sub_category.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+
+    <br><br><br>
+
+    {% for product in products %}
+        <a href="{{ product.get_absolute_url }}" style="color: black">
+            <div class="card border-dark mx-auto" style="width: 18rem; display: inline-block;">
+                {% thumbnail product.images.all.first.image "300x300" as image %}
+                    <img src="{{ image.url }}" class="card-img-top" alt="" width="{{ im.width }}"
+                         height="{{ im.height }}">
+                {% endthumbnail %}
+                <div class="card-body">
+                    <h6 class="card-title">{{ product.name }}</h6>
+                    <h6 class="card-text">{{ product.price|intcomma }} Toman</h6>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+
+{% endblock %}

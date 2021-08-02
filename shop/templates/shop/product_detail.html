@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block title %} Shop {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div id="carouselExampleIndicators" style="background-color: lightgray" class="carousel slide col"
+                 data-ride="carousel">
+                <ol class="carousel-indicators">
+                    {% for image in product.images.all %}
+                        <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}"
+                            class="{% if forloop.counter == 1 %}active{% endif %}"></li>
+                    {% endfor %}
+                </ol>
+                <div class="carousel-inner col">
+                    {% for images in product.images.all %}
+                        <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}">
+                            <img src="{{ images.image.url }}" class="d-block w-100" alt="...">
+                        </div>
+                    {% endfor %}
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+            <div class="col">
+                <h2>{{ product.name }}</h2>
+                <small>Category: {{ categories.last }} / {{ categories.first }}</small><br>
+
+                <small>Added in: {{ product.created|timesince }} ago</small><br><br>
+                <p>{{ product.description }}</p><br>
+                <h4>{{ product.price|intcomma }} Toman</h4><br>
+            </div>
+            <div class="col">
+                <form action="" method="post">
+
+                    <input type="submit" value="Add to Cart" class="btn btn-primary">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
